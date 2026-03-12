@@ -5,126 +5,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VigilanteTR Store</title>
     <style>
-        body {
-            background-color: #0d1117;
-            color: white;
-            font-family: 'Segoe UI', sans-serif;
-            margin: 0;
-            padding: 15px;
-        }
-        .header {
-            text-align: center;
-            padding: 15px 0;
-            border-bottom: 2px solid #f42a41;
-            margin-bottom: 20px;
-        }
-        .header h1 { margin: 0; font-size: 22px; color: #f42a41; letter-spacing: 2px; text-transform: uppercase; }
+        body { background-color: #0d1117; color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 15px; }
+        .header { text-align: center; padding: 15px 0; border-bottom: 2px solid #f42a41; margin-bottom: 20px; }
+        .header h1 { margin: 0; font-size: 22px; color: #f42a41; text-transform: uppercase; letter-spacing: 2px; }
         
-        .game-card {
-            background: #161b22;
-            border-radius: 12px;
-            padding: 12px;
-            display: flex;
-            align-items: center;
-            margin-bottom: 12px;
-            border: 1px solid #30363d;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-        }
-        .game-img {
-            width: 60px;
-            height: 60px;
-            border-radius: 8px;
-            object-fit: cover;
-            margin-right: 12px;
-            border: 1px solid #f42a41;
-        }
+        .game-card { background: #161b22; border-radius: 12px; padding: 12px; display: flex; align-items: center; margin-bottom: 12px; border: 1px solid #30363d; }
+        .game-img { width: 60px; height: 60px; border-radius: 8px; margin-right: 12px; border: 1px solid #f42a41; }
         .game-info { flex-grow: 1; }
-        .game-info h3 { margin: 0; font-size: 16px; color: #e6edf3; }
-        .game-info p { margin: 3px 0 0; font-size: 11px; color: #8b949e; }
+        .game-info h3 { margin: 0; font-size: 16px; }
         
-        .download-btn {
-            background-color: #f42a41;
-            color: white;
-            text-decoration: none;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-weight: bold;
-            font-size: 12px;
-            text-transform: uppercase;
-            transition: 0.2s;
+        .download-btn { background-color: #f42a41; color: white; border: none; padding: 10px 15px; border-radius: 6px; font-weight: bold; cursor: pointer; text-transform: uppercase; }
+
+        /* İndirme Overlay (Ekranı Kaplayan Panel) */
+        #download-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(13, 17, 23, 0.95);
+            z-index: 1000;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
-        .download-btn:active { background-color: #9b1a29; transform: scale(0.95); }
+
+        .progress-container { width: 80%; background-color: #30363d; border-radius: 20px; margin: 20px 0; }
+        .progress-bar { width: 0%; height: 20px; background-color: #f42a41; border-radius: 20px; transition: width 0.1s linear; }
+        .status-text { font-size: 18px; font-weight: bold; margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>VIGILANTE STORE</h1>
-    </div>
+    <div class="header"><h1>VIGILANTE STORE</h1></div>
 
-    <div class="game-card">
-        <img src="https://img.androidoyun.club/2014/11/five-nights-at-freddys-full-apk.jpg" class="game-img">
-        <div class="game-info">
-            <h3>FNAF 1</h3>
-            <p>v2.0.7 - Kilitler Açık</p>
+    <div id="game-list">
+        <div class="game-card">
+            <img src="https://img.androidoyun.club/2014/11/five-nights-at-freddys-full-apk.jpg" class="game-img">
+            <div class="game-info"><h3>FNAF 1</h3></div>
+            <button class="download-btn" onclick="startDownload('FNAF 1', 'https://androidoyun.club/2025/09/five-nights-at-freddys-v2-0-7-mod-apk-kilitler-acik.html')">YÜKLE</button>
         </div>
-        <a href="https://androidoyun.club/2025/09/five-nights-at-freddys-v2-0-7-mod-apk-kilitler-acik.html" class="download-btn">GİT</a>
-    </div>
 
-    <div class="game-card">
-        <img src="https://img.androidoyun.club/2014/11/five-nights-at-freddys-2-full-apk.jpg" class="game-img">
-        <div class="game-info">
-            <h3>FNAF 2</h3>
-            <p>v2.0.5 - Kilitler Açık</p>
+        <div class="game-card">
+            <img src="https://img.androidoyun.club/2024/11/minecraft-pocket-edition-full-apk.jpg" class="game-img">
+            <div class="game-info"><h3>MINECRAFT</h3></div>
+            <button class="download-btn" onclick="startDownload('Minecraft', 'https://androidoyun.club/2026/03/minecraft-v1-26-10-26-1-26-3-1-full-apk-beta-final.html')">YÜKLE</button>
         </div>
-        <a href="https://androidoyun.club/2023/10/five-nights-at-freddys-2-v2-0-5-mod-apk-kilitler-acik.html" class="download-btn">GİT</a>
-    </div>
 
-    <div class="game-card">
-        <img src="https://img.androidoyun.club/2024/11/minecraft-pocket-edition-full-apk.jpg" class="game-img">
-        <div class="game-info">
-            <h3>MINECRAFT</h3>
-            <p>v1.26.10 - Beta / Final</p>
         </div>
-        <a href="https://androidoyun.club/2026/03/minecraft-v1-26-10-26-1-26-3-1-full-apk-beta-final.html" class="download-btn">GİT</a>
-    </div>
 
-    <div class="game-card">
-        <img src="https://img.androidoyun.club/2018/11/age-of-civilizations-2-full-apk.jpg" class="game-img">
-        <div class="game-info">
-            <h3>AGE OF HISTORY 2</h3>
-            <p>v1.28 - Tam Sürüm</p>
+    <div id="download-overlay">
+        <div class="status-text" id="dl-name">Dosya Hazırlanıyor...</div>
+        <div class="progress-container">
+            <div class="progress-bar" id="myBar"></div>
         </div>
-        <a href="https://androidoyun.club/2025/08/age-of-history-2-v1-28-full-apk-tam-surum.html" class="download-btn">GİT</a>
+        <div id="percentText">0%</div>
+        <p style="font-size: 12px; color: #8b949e; margin-top: 10px;">Vigilante Store Güvenli İndirme Sistemi</p>
     </div>
 
-    <div class="game-card">
-        <img src="https://img.androidoyun.club/2024/11/age-of-history-3-apk.jpg" class="game-img">
-        <div class="game-info">
-            <h3>AGE OF HISTORY 3</h3>
-            <p>v1.136 - Tam Sürüm</p>
-        </div>
-        <a href="https://androidoyun.club/2025/12/age-of-history-3-v1-136-b13-full-apk-tam-surum.html" class="download-btn">GİT</a>
-    </div>
+    <script>
+        function startDownload(name, url) {
+            document.getElementById('download-overlay').style.display = 'flex';
+            document.getElementById('dl-name').innerText = name + " İndiriliyor...";
+            
+            var elem = document.getElementById("myBar");
+            var text = document.getElementById("percentText");
+            var width = 0;
+            var id = setInterval(frame, 50); // Hız ayarı (50ms)
 
-    <div class="game-card">
-        <img src="https://img.uptodown.com/icons/roblox-android.png" class="game-img">
-        <div class="game-info">
-            <h3>ROBLOX</h3>
-            <p>Türkiye Özel APK - Güncel</p>
-        </div>
-        <a href="https://roblox.tr.uptodown.com/android" class="download-btn">GİT</a>
-    </div>
-
-    <div class="game-card">
-        <img src="https://img.androidoyun.club/2018/07/hello-neighbor-full-apk.jpg" class="game-img">
-        <div class="game-info">
-            <h3>HELLO NEIGHBOR</h3>
-            <p>Full APK - Bölümler Açık</p>
-        </div>
-        <a href="https://androidoyun.club/tag/hello-neighbor-full-apk" class="download-btn">GİT</a>
-    </div>
-
+            function frame() {
+                if (width >= 100) {
+                    clearInterval(id);
+                    // Bar dolunca siteye yönlendir
+                    window.location.href = url;
+                } else {
+                    width++;
+                    elem.style.width = width + '%';
+                    text.innerHTML = width + '%';
+                }
+            }
+        }
+    </script>
 </body>
 </html>
-
